@@ -1,0 +1,5 @@
+name: sean-chat
+env: []
+build:
+  - dockerfile: Dockerfile
+    context: .
