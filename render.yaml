@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sean-chat
+    name: sean=chat
     env: docker
     build:
-      dockerfile: Dockerfile
+      env: dockerfile
