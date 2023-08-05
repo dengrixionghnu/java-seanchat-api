@@ -1,5 +1,6 @@
-name: sean-chat
-env: []
-build:
-  - dockerfile: Dockerfile
-    context: .
+services:
+  - type: web
+    name: sean-chat
+    env: docker
+    build:
+      dockerfile: Dockerfile
