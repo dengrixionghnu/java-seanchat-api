@@ -16,7 +16,7 @@ public class PageAutoReloadScheduler {
     }
 
     // auto reload every 1 minutes
-    @Scheduled(fixedRate = 60_000, initialDelay = 60_000)
+    @Scheduled(fixedRate = 10*60_000, initialDelay = 10*60_000)
     public void reload() {
         PlaywrightUtil.tryToReload(refreshPage);
     }
