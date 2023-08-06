@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     @GetMapping("/chat")
-    public String chat(){
-        return "hello chat";
+    public String hello(){
+        return "你好，唐智敏";
     }
 
 
