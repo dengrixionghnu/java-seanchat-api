@@ -1,6 +1,7 @@
 services:
   - type: web
-    name: sean=chat
-    env: docker
-    build:
-      env: dockerfile
+    name: sean-service-api
+    runtime: docker
+    rootDir: community/docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
