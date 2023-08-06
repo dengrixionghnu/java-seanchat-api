@@ -33,7 +33,7 @@ public class ChatGPTController {
         return chatGPTService.getConversations(accessToken, offset, limit);
     }
 
-    @PostMapping(value = "/conversation")
+    @PostMapping( "/conversation")
     public List<String> startConversation(
             @RequestHeader String authorization,
             @RequestBody ConversationRequest conversationRequest

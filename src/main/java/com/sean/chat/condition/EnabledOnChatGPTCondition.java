@@ -9,6 +9,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 public class EnabledOnChatGPTCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        return Boolean.parseBoolean(context.getEnvironment().getProperty(Constant.ENV_VAR_CHATGPT));
+        return true;
+       // return Boolean.parseBoolean(context.getEnvironment().getProperty(Constant.ENV_VAR_CHATGPT));
     }
 }
