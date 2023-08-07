@@ -9,6 +9,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.sean.chat.misc.HeaderUtil.getAuthorizationHeader;
@@ -28,9 +29,12 @@ public class ApiServiceImpl implements ApiService {
         headers.set("Authorization", getAuthorizationHeader(authorization));
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         HttpEntity<ChatCompletionsRequest> requestEntity = new HttpEntity<>(chatCompletionsRequest, headers);
-        return restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
-                new ParameterizedTypeReference<List<String>>() {}
+        String  result= restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
+                String.class
         ).getBody();
+
+        return Arrays.asList(result);
+
     }
 
     @Override
