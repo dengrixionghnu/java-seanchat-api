@@ -28,7 +28,7 @@ public class ApiServiceImpl implements ApiService {
         headers.set("Authorization", getAuthorizationHeader(authorization));
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         HttpEntity<ChatCompletionsRequest> requestEntity = new HttpEntity<>(chatCompletionsRequest, headers);
-        return restTemplate.exchange(Constant.API_URL+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
+        return restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
                 new ParameterizedTypeReference<List<String>>() {}
         ).getBody();
     }
@@ -38,7 +38,7 @@ public class ApiServiceImpl implements ApiService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", getAuthorizationHeader(authorization));
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(Constant.API_URL + Constant.API_CHECK_CREDIT_GRANTS, HttpMethod.GET,
+        ResponseEntity<String> response = restTemplate.exchange(Constant.API_URL +"/"+ Constant.API_CHECK_CREDIT_GRANTS, HttpMethod.GET,
                 httpEntity,
                 String.class
         );

@@ -15,14 +15,14 @@ public class ApiController {
     private  ApiService apiService;
 
 
-    @PostMapping(value = Constant.API_CHAT_COMPLETIONS)
+    @PostMapping("/chat/completions")
     public List<String> chatCompletions(
             @RequestHeader String authorization,
             @RequestBody ChatCompletionsRequest chatCompletionsRequest) {
         return apiService.chatCompletions(authorization, chatCompletionsRequest);
     }
 
-    @GetMapping(Constant.API_CHECK_CREDIT_GRANTS)
+    @GetMapping("/dashboard/billing/credit_grants")
     public String checkCreditGrants(@RequestHeader String authorization) {
         return apiService.checkCreditGrants(authorization);
     }
