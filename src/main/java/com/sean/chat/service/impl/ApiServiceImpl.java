@@ -1,5 +1,6 @@
 package com.sean.chat.service.impl;
 import com.sean.chat.misc.Constant;
+import com.sean.chat.model.api.ChatCompletionDTO;
 import com.sean.chat.model.api.ChatCompletionsRequest;
 import com.sean.chat.service.ApiService;
 import lombok.SneakyThrows;
@@ -9,8 +10,10 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.sean.chat.misc.HeaderUtil.getAuthorizationHeader;
 
@@ -29,11 +32,14 @@ public class ApiServiceImpl implements ApiService {
         headers.set("Authorization", getAuthorizationHeader(authorization));
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         HttpEntity<ChatCompletionsRequest> requestEntity = new HttpEntity<>(chatCompletionsRequest, headers);
-        String  result= restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
-                String.class
+        ChatCompletionDTO result= restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
+                ChatCompletionDTO.class
         ).getBody();
+        if(Objects.isNull(result) || Objects.isNull(result.getChoices()) || result.getChoices().isEmpty()){
+            return new ArrayList<>();
+        }
 
-        return Arrays.asList(result);
+        return Arrays.asList(result.getChoices().get(0).getMessage().getContent());
 
     }
 
