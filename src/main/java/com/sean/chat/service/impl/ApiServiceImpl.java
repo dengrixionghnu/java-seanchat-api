@@ -1,4 +1,5 @@
 package com.sean.chat.service.impl;
+import com.google.gson.Gson;
 import com.sean.chat.misc.Constant;
 import com.sean.chat.model.api.ChatCompletionDTO;
 import com.sean.chat.model.api.ChatCompletionsRequest;
@@ -23,6 +24,8 @@ public class ApiServiceImpl implements ApiService {
 
     private RestTemplate restTemplate =  new RestTemplate();
 
+    Gson gson = new Gson();
+
 
     @SneakyThrows
     @Override
@@ -30,11 +33,12 @@ public class ApiServiceImpl implements ApiService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", getAuthorizationHeader(authorization));
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         HttpEntity<ChatCompletionsRequest> requestEntity = new HttpEntity<>(chatCompletionsRequest, headers);
-        ChatCompletionDTO result= restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
-                ChatCompletionDTO.class
+        String resultJson= restTemplate.exchange(Constant.API_URL+"/"+Constant.API_CHAT_COMPLETIONS, HttpMethod.POST,requestEntity,
+                String.class
         ).getBody();
+        System.out.println(resultJson);
+        ChatCompletionDTO result = gson.fromJson(resultJson,ChatCompletionDTO.class);
         if(Objects.isNull(result) || Objects.isNull(result.getChoices()) || result.getChoices().isEmpty()){
             return new ArrayList<>();
         }
